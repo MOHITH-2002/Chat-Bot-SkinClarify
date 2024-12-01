@@ -320,7 +320,7 @@ import { Input } from "@/components/ui/input";
 import { Camera, Send, Star } from "lucide-react";
 import { diseaseData, DiseaseKey } from "./data";
 import CameraUploader from './camera';
-import { conversationStore } from '@/lib/actions/conversationController';
+import Navbar from './navbar';
 
 type Message = {
   type: "bot" | "user";
@@ -485,7 +485,6 @@ const ChatbotUi: React.FC = () => {
   const handleRating = async (rating: number) => {
     await setMessages(prev => [...prev, { type: "user", content: `Rated ${rating} stars` }]);
     await botPrompt("Thank you for your feedback!");
-    await conversationStore(messages);
     setShowRatingOptions(false);
   };
 
@@ -531,19 +530,13 @@ const ChatbotUi: React.FC = () => {
     }
   };
   
-  console.log(messages);
+  // console.log(messages);
   
   return (
     <div className="w-full h-screen flex items-center justify-center bg-background md:p-0">
       <Card className="w-full mx-auto h-full flex flex-col">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <div className="flex items-center space-x-2">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="/path-to-your-logo.svg" alt="Skin Clarify" />
-              <AvatarFallback>SC</AvatarFallback>
-            </Avatar>
-            <span className="font-bold">Skin Clarify</span>
-          </div>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-5">
+          <Navbar/>
         </CardHeader>
         <CardContent className="flex-grow overflow-hidden">
           <div className="h-full w-full pr-4 overflow-y-auto" ref={chatContainerRef} style={{ maxHeight: '100%' }}>
